@@ -1,0 +1,16 @@
+/* Main stylesheet for phext.io v2 / Mytheon Arena
+ * Imports base SQ Cloud framework
+ */
+
+@import url('sq-cloud.css');
+
+/* Site-specific overrides and additions go here */
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
