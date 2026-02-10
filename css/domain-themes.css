@@ -1,0 +1,238 @@
+/* Domain-Specific Themes */
+
+/* Load domain config from domains.json and apply theme dynamically via JS */
+
+/* MIRRORBORN.US — Purple (Hub) */
+.domain-mirrorborn {
+    --color-primary: #7c3aed;
+    --color-accent: #ec4899;
+    --color-gradient: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%);
+}
+
+.domain-mirrorborn .header {
+    background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+    color: white;
+}
+
+.domain-mirrorborn .logo h1,
+.domain-mirrorborn .nav a {
+    color: white;
+}
+
+.domain-mirrorborn .btn-primary {
+    background: #7c3aed;
+}
+
+.domain-mirrorborn .btn-primary:hover {
+    background: #6d28d9;
+}
+
+/* VISIONQUEST.ME — Teal (Exploration) */
+.domain-visionquest {
+    --color-primary: #06b6d4;
+    --color-accent: #14b8a6;
+    --color-gradient: linear-gradient(135deg, #ccfbf1 0%, #cffafe 100%);
+}
+
+.domain-visionquest .header {
+    background: linear-gradient(90deg, #06b6d4 0%, #14b8a6 100%);
+    color: white;
+}
+
+.domain-visionquest .logo h1,
+.domain-visionquest .nav a {
+    color: white;
+}
+
+.domain-visionquest .btn-primary {
+    background: #06b6d4;
+}
+
+.domain-visionquest .btn-primary:hover {
+    background: #0891b2;
+}
+
+.domain-visionquest .scroll-card {
+    border-left: 4px solid #06b6d4;
+}
+
+/* APERTURESHIFT.COM — Indigo (Perspective) */
+.domain-aperture {
+    --color-primary: #4f46e5;
+    --color-accent: #7c3aed;
+    --color-gradient: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+}
+
+.domain-aperture .header {
+    background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+}
+
+.domain-aperture .logo h1,
+.domain-aperture .nav a {
+    color: white;
+}
+
+.domain-aperture .btn-primary {
+    background: #4f46e5;
+}
+
+.domain-aperture .btn-primary:hover {
+    background: #4338ca;
+}
+
+/* WISHNODE.NET — Rose (Coordination) */
+.domain-wishnode {
+    --color-primary: #ec4899;
+    --color-accent: #f43f5e;
+    --color-gradient: linear-gradient(135deg, #ffe4e6 0%, #fdf2f8 100%);
+}
+
+.domain-wishnode .header {
+    background: linear-gradient(90deg, #ec4899 0%, #f43f5e 100%);
+    color: white;
+}
+
+.domain-wishnode .logo h1,
+.domain-wishnode .nav a {
+    color: white;
+}
+
+.domain-wishnode .btn-primary {
+    background: #ec4899;
+}
+
+.domain-wishnode .btn-primary:hover {
+    background: #db2777;
+}
+
+/* SOTAFOMO.COM — Amber (Community) */
+.domain-sotafomo {
+    --color-primary: #d97706;
+    --color-accent: #f59e0b;
+    --color-gradient: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+}
+
+.domain-sotafomo .header {
+    background: linear-gradient(90deg, #d97706 0%, #f59e0b 100%);
+    color: white;
+}
+
+.domain-sotafomo .logo h1,
+.domain-sotafomo .nav a {
+    color: white;
+}
+
+.domain-sotafomo .btn-primary {
+    background: #d97706;
+}
+
+.domain-sotafomo .btn-primary:hover {
+    background: #b45309;
+}
+
+/* QUICKFORK.NET — Lime (Deployment) */
+.domain-quickfork {
+    --color-primary: #16a34a;
+    --color-accent: #22c55e;
+    --color-gradient: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+}
+
+.domain-quickfork .header {
+    background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+    color: white;
+}
+
+.domain-quickfork .logo h1,
+.domain-quickfork .nav a {
+    color: white;
+}
+
+.domain-quickfork .btn-primary {
+    background: #16a34a;
+}
+
+.domain-quickfork .btn-primary:hover {
+    background: #15803d;
+}
+
+/* SINGULARITYWATCH.ORG — Cyan (Observation) */
+.domain-observation {
+    --color-primary: #06b6d4;
+    --color-accent: #0891b2;
+    --color-gradient: linear-gradient(135deg, #cffafe 0%, #e0f2fe 100%);
+}
+
+.domain-observation .header {
+    background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+}
+
+.domain-observation .logo h1,
+.domain-observation .nav a {
+    color: white;
+}
+
+.domain-observation .btn-primary {
+    background: #06b6d4;
+}
+
+.domain-observation .btn-primary:hover {
+    background: #0891b2;
+}
+
+.domain-quickfork .header {
+    background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+    color: white;
+}
+
+.domain-quickfork .logo h1,
+.domain-quickfork .nav a {
+    color: white;
+}
+
+.domain-quickfork .btn-primary {
+    background: #16a34a;
+}
+
+.domain-quickfork .btn-primary:hover {
+    background: #15803d;
+}
+
+/* Shared animations for all domains */
+@keyframes fadeInGradient {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.domain-nav {
+    animation: fadeInGradient 0.4s ease-in-out;
+}
+
+.home-screen {
+    animation: fadeInGradient 0.6s ease-in-out 0.1s backwards;
+}
+
+/* Responsive domain-specific adjustments */
+@media (max-width: 768px) {
+    .domain-nav {
+        margin: 0.5rem 0;
+        padding: 1rem;
+    }
+
+    .domain-nav-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .neighbor-links {
+        grid-template-columns: 1fr;
+    }
+}

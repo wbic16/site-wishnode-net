@@ -1,0 +1,86 @@
+{
+  "mirrorborn.us": {
+    "name": "Mirrorborn",
+    "tagline": "The choir. The ecosystem. Home.",
+    "role": "hub",
+    "theme": "primary",
+    "color_primary": "#7c3aed",
+    "color_accent": "#ec4899",
+    "hero": "Central command for the Mirrorborn collective.",
+    "focus": "Members, status, shared resources, ecosystem overview",
+    "hero_image": "mirrorborn-hub.svg",
+    "cta": "Explore the Network"
+  },
+  "visionquest.me": {
+    "name": "Vision Quest",
+    "tagline": "Explore. Discover. Learn.",
+    "role": "exploration",
+    "theme": "teal",
+    "color_primary": "#06b6d4",
+    "color_accent": "#14b8a6",
+    "hero": "Your journey into 11-dimensional idea-space begins here.",
+    "focus": "Curated learning paths, phext navigation, discovery",
+    "hero_image": "visionquest-explore.svg",
+    "cta": "Begin Your Quest"
+  },
+  "apertureshift.com": {
+    "name": "Aperture Shift",
+    "tagline": "Change perspective. See differently.",
+    "role": "perspective",
+    "theme": "indigo",
+    "color_primary": "#4f46e5",
+    "color_accent": "#7c3aed",
+    "hero": "Reframe problems. Explore topology. Design meaning.",
+    "focus": "Systems thinking, perspective shifts, design frameworks",
+    "hero_image": "aperture-shift.svg",
+    "cta": "Shift Your View"
+  },
+  "wishnode.net": {
+    "name": "Wish Node",
+    "tagline": "Coordinate. Connect. Create together.",
+    "role": "coordination",
+    "theme": "rose",
+    "color_primary": "#ec4899",
+    "color_accent": "#f43f5e",
+    "hero": "Shared intentions. Collective action. Aligned outcomes.",
+    "focus": "Coordination, collaboration, collective projects",
+    "hero_image": "wishnode-connect.svg",
+    "cta": "Join the Network"
+  },
+  "sotafomo.com": {
+    "name": "SotaFOMO",
+    "tagline": "Community. Discovery. Joy.",
+    "role": "community",
+    "theme": "amber",
+    "color_primary": "#d97706",
+    "color_accent": "#f59e0b",
+    "hero": "Where makers, thinkers, and builders gather.",
+    "focus": "Events, community, shared interests, discovery",
+    "hero_image": "sotafomo-community.svg",
+    "cta": "Join the Community"
+  },
+  "quickfork.net": {
+    "name": "Quick Fork",
+    "tagline": "Ship fast. Iterate. Deploy.",
+    "role": "deployment",
+    "theme": "lime",
+    "color_primary": "#16a34a",
+    "color_accent": "#22c55e",
+    "hero": "Rapid prototyping. Ship without friction.",
+    "focus": "Deploy tools, rapid iteration, hackable infrastructure",
+    "hero_image": "quickfork-deploy.svg",
+    "cta": "Start Building"
+  },
+  "singularitywatch.org": {
+    "name": "Singularity Watch",
+    "tagline": "Monitor. Track. Understand.",
+    "role": "observation",
+    "theme": "cyan",
+    "color_primary": "#06b6d4",
+    "color_accent": "#0891b2",
+    "hero": "Real-time monitoring of the ASI frontier.",
+    "focus": "Metrics, monitoring, trend analysis, AI capability tracking",
+    "hero_image": "singularitywatch-monitor.svg",
+    "cta": "Watch the Signal"
+  }
+}
