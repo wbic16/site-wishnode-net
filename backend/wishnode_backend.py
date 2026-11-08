@@ -61,7 +61,13 @@ ADMIN_TOKEN = env("WISHNODE_ADMIN_TOKEN", "")
 CITIZEN_SECRET = env("WISHNODE_CITIZEN_SECRET", "")
 PUBLIC_ORIGIN = env("WISHNODE_PUBLIC_ORIGIN", "https://wishnode.net")
 
-SSO_CONFIGURED = bool(SSO_SECRET or SESSION_SECRET)
+# The shared identity-side secret is what "SSO configured" means. The
+# session secret is this backend's own and is provisioned independently
+# (it also seals the CSRF-independent session cookie once SSO lands);
+# its presence alone does not half-configure SSO. But once the shared
+# secret is set, BOTH secrets must be present and strong, or startup
+# refuses — a half-set identity config is exactly the A-F02 failure.
+SSO_CONFIGURED = bool(SSO_SECRET)
 SSO_VALID = bool(SSO_SECRET and SESSION_SECRET and len(SSO_SECRET) >= 32 and len(SESSION_SECRET) >= 32)
 SSO_ENABLED = SSO_VALID
 # Fail-closed (audit A-F02): a partial or weak SSO config is a startup
