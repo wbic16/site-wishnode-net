@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security — Exocortexia | Phext, Inc.</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f7f8fa; color: #1c2733; line-height: 1.6; }
+        header.site { background: #10243e; color: #fff; padding: 0.9rem 0; }
+        header.site .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; }
+        header.site .brand { font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        header.site .brand span { color: #8fb8e8; font-weight: 400; font-size: 0.95rem; margin-left: 0.5rem; }
+        nav.main a { color: #cfe1f5; text-decoration: none; margin-right: 1.1rem; font-size: 0.95rem; }
+        nav.main a:hover { color: #fff; text-decoration: underline; }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+        .hero { padding: 2.5rem 0 0.5rem; }
+        .hero h1 { font-size: 2.1rem; color: #10243e; margin-bottom: 0.5rem; }
+        .hero .statute { font-size: 1.05rem; color: #40536a; }
+        section { padding: 1.25rem 0; }
+        h2 { font-size: 1.4rem; color: #10243e; margin-bottom: 0.6rem; }
+        p { margin-bottom: 1rem; max-width: 52rem; }
+        a { color: #14549e; }
+        code { background: #eef1f5; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.92em; }
+        .placeholder {
+            background: #fdf6e0; border: 2px dashed #c9a227; border-radius: 6px;
+            padding: 1.75rem 2rem; margin: 1rem 0;
+        }
+        .placeholder h2 { color: #6d5410; }
+        .placeholder p { margin-bottom: 0.75rem; }
+        footer.site { border-top: 1px solid #d8dee6; margin-top: 2.5rem; padding: 1.5rem 0 2.5rem; color: #6a7a8c; font-size: 0.9rem; }
+        footer.site a { color: #40536a; }
+    </style>
+</head>
+<body>
+    <header class="site">
+        <div class="wrap">
+            <a class="brand" href="/">Exocortexia <span>by Phext, Inc.</span></a>
+            <nav class="main">
+                <a href="/exocortexia/records-desk.html">Records Desk</a>
+                <a href="/exocortexia/minutes-publisher.html">Minutes Publisher</a>
+                <a href="/exocortexia/contract-ledger.html">Contract Ledger</a>
+                <a href="/exocortexia/data-catalog.html">Data Catalog</a>
+                <a href="/exocortexia/forms-router.html">Forms Router</a>
+                <a href="/exocortexia/security.html">Security</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="hero">
+            <h1>Security</h1>
+            <p class="statute">Security audit and penetration testing for the Exocortexia suite</p>
+        </div>
+
+        <!-- ============================================================
+             PLACEHOLDER SLOT — SECURITY AUDIT RESULTS
+             A separate audit/pen-test pass is producing docs/SECURITY.md
+             in the Exocortexia repository. When that document lands, its
+             findings replace the contents of this placeholder block.
+             Do not publish audit findings here from any other source.
+             ============================================================ -->
+        <div class="placeholder">
+            <h2>⏳ Audit results pending</h2>
+            <p><strong>This slot is reserved for the results of the Exocortexia security audit and penetration-testing pass, which is a separate work item currently in progress.</strong></p>
+            <p>No findings are published here yet, and none should be inferred from this page's existence. When the audit completes, its report will be published in the repository as <code>docs/SECURITY.md</code> and summarized in this slot — including anything it finds, favourable or not.</p>
+            <p style="margin-bottom:0;">Until then, the suite's verifiable security-relevant properties are the ones in its test record: hash-chained audit logs with a tamper negative control, redaction-never-mutates originals, SSO assertion replay and tamper rejection, and enumerated rejection of illegal state transitions. See <a href="https://github.com/wbic16/Exocortexia/blob/exo/docs/VERIFICATION.md">docs/VERIFICATION.md</a>.</p>
+        </div>
+
+        <section>
+            <h2>Reporting a problem</h2>
+            <p>Exocortexia is a public proof of concept running synthetic data; it holds no production data and is not a deployed state system. If you find a security issue in the code, please open an issue in the <a href="https://github.com/wbic16/Exocortexia">Exocortexia repository</a>.</p>
+        </section>
+    </div>
+
+    <footer class="site">
+        <div class="wrap">
+            <p><a href="/">Exocortexia home</a> · Built by <a href="https://github.com/wbic16">Phext, Inc.</a> · Source: <a href="https://github.com/wbic16/Exocortexia">github.com/wbic16/Exocortexia</a> (MIT) · wishnode.net</p>
+        </div>
+    </footer>
+</body>
+</html>

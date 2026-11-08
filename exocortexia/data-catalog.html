@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Data Catalog — Exocortexia | Phext, Inc.</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f7f8fa; color: #1c2733; line-height: 1.6; }
+        header.site { background: #10243e; color: #fff; padding: 0.9rem 0; }
+        header.site .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; }
+        header.site .brand { font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        header.site .brand span { color: #8fb8e8; font-weight: 400; font-size: 0.95rem; margin-left: 0.5rem; }
+        nav.main a { color: #cfe1f5; text-decoration: none; margin-right: 1.1rem; font-size: 0.95rem; }
+        nav.main a:hover { color: #fff; text-decoration: underline; }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+        .hero { padding: 2.5rem 0 0.5rem; }
+        .hero h1 { font-size: 2.1rem; color: #10243e; margin-bottom: 0.5rem; }
+        .hero .statute { font-size: 1.05rem; color: #40536a; }
+        section { padding: 1.25rem 0; }
+        h2 { font-size: 1.4rem; color: #10243e; margin-bottom: 0.6rem; }
+        p { margin-bottom: 1rem; max-width: 52rem; }
+        ul { margin: 0 0 1rem 1.4rem; max-width: 52rem; }
+        li { margin-bottom: 0.4rem; }
+        a { color: #14549e; }
+        code { background: #eef1f5; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.92em; }
+        .meta { background: #fff; border: 1px solid #d8dee6; border-radius: 6px; padding: 1.1rem 1.4rem; font-size: 0.97rem; }
+        .btn { display: inline-block; background: #14549e; color: #fff; text-decoration: none; padding: 0.6rem 1.1rem; border-radius: 5px; font-weight: 600; margin-right: 0.6rem; }
+        .btn:hover { background: #0f4078; }
+        .btn.secondary { background: #fff; color: #14549e; border: 1px solid #14549e; }
+        footer.site { border-top: 1px solid #d8dee6; margin-top: 2.5rem; padding: 1.5rem 0 2.5rem; color: #6a7a8c; font-size: 0.9rem; }
+        footer.site a { color: #40536a; }
+    </style>
+</head>
+<body>
+    <header class="site">
+        <div class="wrap">
+            <a class="brand" href="/">Exocortexia <span>by Phext, Inc.</span></a>
+            <nav class="main">
+                <a href="/exocortexia/records-desk.html">Records Desk</a>
+                <a href="/exocortexia/minutes-publisher.html">Minutes Publisher</a>
+                <a href="/exocortexia/contract-ledger.html">Contract Ledger</a>
+                <a href="/exocortexia/data-catalog.html">Data Catalog</a>
+                <a href="/exocortexia/forms-router.html">Forms Router</a>
+                <a href="/exocortexia/security.html">Security</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="hero">
+            <h1>Open Data Catalog</h1>
+            <p class="statute">A data-governance catalog: definitions, provenance, and staleness you can check</p>
+        </div>
+
+        <section>
+            <h2>What it does</h2>
+            <p>Eight synthetic Nebraska datasets, catalogued the way a data-governance program needs them: who owns each dataset, how often it should refresh, where its fields come from, and whether it is current.</p>
+            <ul>
+                <li><strong>Field-level definitions.</strong> Every field carries a plain definition, a type, and a provenance — where the field's values actually come from.</li>
+                <li><strong>Staleness computed on view.</strong> A dataset is <code>STALE</code> when today minus its last-updated date exceeds its declared cadence, <code>FRESH</code> otherwise. The badge is computed the day you look, never stored — a stored badge would itself go stale.</li>
+                <li><strong>Link checks, on demand only.</strong> Checking a source link opens a connection and reads the status; checks run only when the link-check endpoint is called, never on page load, so simply viewing the catalog does no network work. Plain <code>http://</code> links are checked; <code>https://</code> links are honestly reported as "not checked in demo" rather than silently skipped or faked.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>An honest caveat</h2>
+            <p>This is the one application in the suite whose underlying need is an <strong>unvalidated hypothesis</strong>: we believe a field-level catalog with computed staleness would help a state data program, but no agency has yet confirmed that need with us. Its framing sheet in the repository says so plainly, and so does this page. It is included because the pattern — definitions, provenance, cadence, freshness — is the same discipline the other four apps apply to their own domains.</p>
+            <p>Framing sheet: <a href="https://github.com/wbic16/Exocortexia/blob/exo/docs/data-catalog-statute.md">docs/data-catalog-statute.md</a>.</p>
+        </section>
+
+        <section>
+            <h2>Details</h2>
+            <div class="meta">
+                <p>Component: <code>apps/data-catalog</code> · Default port: 8804 · Automated tests: 7 (including staleness boundaries and link-check behaviour) · Sign-in: edit.phext.io SSO when configured; open demo mode with a visible banner otherwise.</p>
+                <p style="margin-bottom:0;">
+                    <a class="btn" href="https://github.com/wbic16/Exocortexia/tree/exo/apps/data-catalog">Source</a>
+                    <a class="btn secondary" href="https://github.com/wbic16/Exocortexia/blob/exo/docs/data-catalog-statute.md">Framing sheet</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="site">
+        <div class="wrap">
+            <p><a href="/">Exocortexia home</a> · Built by <a href="https://github.com/wbic16">Phext, Inc.</a> · Source: <a href="https://github.com/wbic16/Exocortexia">github.com/wbic16/Exocortexia</a> (MIT) · wishnode.net</p>
+        </div>
+    </footer>
+</body>
+</html>

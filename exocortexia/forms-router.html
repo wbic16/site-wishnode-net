@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms Intake Router — Exocortexia | Phext, Inc.</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f7f8fa; color: #1c2733; line-height: 1.6; }
+        header.site { background: #10243e; color: #fff; padding: 0.9rem 0; }
+        header.site .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; }
+        header.site .brand { font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        header.site .brand span { color: #8fb8e8; font-weight: 400; font-size: 0.95rem; margin-left: 0.5rem; }
+        nav.main a { color: #cfe1f5; text-decoration: none; margin-right: 1.1rem; font-size: 0.95rem; }
+        nav.main a:hover { color: #fff; text-decoration: underline; }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+        .hero { padding: 2.5rem 0 0.5rem; }
+        .hero h1 { font-size: 2.1rem; color: #10243e; margin-bottom: 0.5rem; }
+        .hero .statute { font-size: 1.05rem; color: #40536a; }
+        section { padding: 1.25rem 0; }
+        h2 { font-size: 1.4rem; color: #10243e; margin-bottom: 0.6rem; }
+        p { margin-bottom: 1rem; max-width: 52rem; }
+        ul { margin: 0 0 1rem 1.4rem; max-width: 52rem; }
+        li { margin-bottom: 0.4rem; }
+        a { color: #14549e; }
+        code { background: #eef1f5; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.92em; }
+        .meta { background: #fff; border: 1px solid #d8dee6; border-radius: 6px; padding: 1.1rem 1.4rem; font-size: 0.97rem; }
+        .btn { display: inline-block; background: #14549e; color: #fff; text-decoration: none; padding: 0.6rem 1.1rem; border-radius: 5px; font-weight: 600; margin-right: 0.6rem; }
+        .btn:hover { background: #0f4078; }
+        .btn.secondary { background: #fff; color: #14549e; border: 1px solid #14549e; }
+        footer.site { border-top: 1px solid #d8dee6; margin-top: 2.5rem; padding: 1.5rem 0 2.5rem; color: #6a7a8c; font-size: 0.9rem; }
+        footer.site a { color: #40536a; }
+    </style>
+</head>
+<body>
+    <header class="site">
+        <div class="wrap">
+            <a class="brand" href="/">Exocortexia <span>by Phext, Inc.</span></a>
+            <nav class="main">
+                <a href="/exocortexia/records-desk.html">Records Desk</a>
+                <a href="/exocortexia/minutes-publisher.html">Minutes Publisher</a>
+                <a href="/exocortexia/contract-ledger.html">Contract Ledger</a>
+                <a href="/exocortexia/data-catalog.html">Data Catalog</a>
+                <a href="/exocortexia/forms-router.html">Forms Router</a>
+                <a href="/exocortexia/security.html">Security</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="hero">
+            <h1>Forms Intake Router</h1>
+            <p class="statute">Forms intake with an explicit state machine — and no personal information by design</p>
+        </div>
+
+        <section>
+            <h2>What it does</h2>
+            <p>Agencies receive forms — the demo is built for public-records request intake — and each submission must be classified, routed to the owning office, worked, and closed, with its progress visible to the requester. Forms Router makes that lifecycle explicit and auditable.</p>
+            <ul>
+                <li><strong>No PII by design.</strong> The form's fields are <code>agency</code>, <code>subject</code>, <code>description</code>, and <code>date_range</code>. There are no name, email, or contact fields: routing a request needs none of them, so the form never asks. The page carries a prominent banner: <strong>SYNTHETIC DATA ONLY — DO NOT ENTER PERSONAL INFORMATION</strong>.</li>
+                <li><strong>Tracking without an account.</strong> Each submission gets a tracking code derived from the first 10 hex characters of <code>sha256(form + sequence + values)</code>. The requester follows status with the code alone — no account, no email round-trip.</li>
+                <li><strong>A strict, enumerated state machine.</strong> <code>received → routed → in_review → closed</code> are the only legal transitions — 3 of the 16 possible state pairs. The test suite enumerates all 16 pairs; an illegal transition (say, routed straight to closed) is rejected with HTTP 400 and writes nothing: no history line, no audit entry.</li>
+                <li><strong>Spec-driven forms.</strong> The form is rendered from a data spec stored as a phext scroll, not hard-coded in the page — changing the form means changing the spec.</li>
+                <li><strong>CSV export.</strong> All submissions export as RFC 4180 CSV (<code>code, form, state, agency, subject</code>).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Why the state machine matters</h2>
+            <p>Most intake systems have an <em>implicit</em> state machine: statuses that drift, transitions nobody enumerated, and records that end up in combinations the process never intended. Naming the states and transitions — and testing the illegal combinations, not just the happy path — is what turns a status field into a guarantee. The full state-machine sheet is in the repository: <a href="https://github.com/wbic16/Exocortexia/blob/exo/docs/forms-router-statute.md">docs/forms-router-statute.md</a>.</p>
+        </section>
+
+        <section>
+            <h2>Details</h2>
+            <div class="meta">
+                <p>Component: <code>apps/forms-router</code> · Default port: 8805 · Automated tests: 11 (including the all-16-state-pairs enumeration) · Sign-in: edit.phext.io SSO when configured; open demo mode with a visible banner otherwise.</p>
+                <p style="margin-bottom:0;">
+                    <a class="btn" href="https://github.com/wbic16/Exocortexia/tree/exo/apps/forms-router">Source</a>
+                    <a class="btn secondary" href="https://github.com/wbic16/Exocortexia/blob/exo/docs/forms-router-statute.md">State-machine sheet</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="site">
+        <div class="wrap">
+            <p><a href="/">Exocortexia home</a> · Built by <a href="https://github.com/wbic16">Phext, Inc.</a> · Source: <a href="https://github.com/wbic16/Exocortexia">github.com/wbic16/Exocortexia</a> (MIT) · wishnode.net</p>
+        </div>
+    </footer>
+</body>
+</html>
