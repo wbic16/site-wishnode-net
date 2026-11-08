@@ -3,152 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wish Node — Multiplayer Lattice</title>
+    <title>Exocortexia — Open Software for State Government | Phext, Inc.</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-            color: #c9d1d9;
-            min-height: 100vh;
-            padding: 2rem;
+            font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f7f8fa;
+            color: #1c2733;
+            line-height: 1.6;
         }
-        nav {
-            background: rgba(0,0,0,0.8);
-            border-bottom: 2px solid #1f6feb;
-            padding: 1rem;
-            text-align: center;
-            margin-bottom: 3rem;
+        header.site {
+            background: #10243e;
+            color: #fff;
+            padding: 0.9rem 0;
         }
-        nav a {
-            color: #58a6ff;
-            margin: 0 1rem;
-            text-decoration: none;
+        header.site .wrap {
+            max-width: 1080px; margin: 0 auto; padding: 0 1.25rem;
+            display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #58a6ff;
-            text-shadow: 0 0 15px rgba(88,166,255,0.3);
-            margin-bottom: 1rem;
-        }
-        .tagline {
-            font-size: 1rem;
-            color: #79c0ff;
-            margin-bottom: 3rem;
-        }
-        .game-section {
-            background: rgba(31,111,235,0.08);
-            border: 1px solid #1f6feb;
-            padding: 2rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-        }
-        .game-section h2 {
-            color: #79c0ff;
-            margin-bottom: 1rem;
-        }
-        .players-online {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid #30363d;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-            color: #79c0ff;
-            font-weight: bold;
-        }
-        .features {
+        header.site .brand { font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        header.site .brand span { color: #8fb8e8; font-weight: 400; font-size: 0.95rem; margin-left: 0.5rem; }
+        nav.main a { color: #cfe1f5; text-decoration: none; margin-right: 1.1rem; font-size: 0.95rem; }
+        nav.main a:hover { color: #fff; text-decoration: underline; }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+        .hero { padding: 3rem 0 1rem; }
+        .hero h1 { font-size: 2.4rem; line-height: 1.2; color: #10243e; margin-bottom: 0.75rem; }
+        .hero p.lede { font-size: 1.15rem; color: #40536a; max-width: 46rem; }
+        section { padding: 1.5rem 0; }
+        h2 { font-size: 1.5rem; color: #10243e; margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; max-width: 52rem; }
+        a { color: #14549e; }
+        .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+            margin: 1rem 0 0.5rem;
         }
-        .feature-box {
-            background: rgba(31,111,235,0.05);
-            border-left: 3px solid #1f6feb;
-            padding: 1.5rem;
-            transition: all 0.3s;
+        .card {
+            background: #fff;
+            border: 1px solid #d8dee6;
+            border-top: 4px solid #14549e;
+            border-radius: 6px;
+            padding: 1.25rem 1.4rem;
         }
-        .feature-box:hover {
-            background: rgba(31,111,235,0.12);
-            border-left-color: #79c0ff;
+        .card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+        .card h3 a { color: #10243e; text-decoration: none; }
+        .card h3 a:hover { text-decoration: underline; }
+        .card p { font-size: 0.97rem; color: #33465c; margin-bottom: 0.6rem; }
+        .statute { font-size: 0.85rem; color: #6a7a8c; margin-bottom: 0; }
+        .panel {
+            background: #fff; border: 1px solid #d8dee6; border-radius: 6px;
+            padding: 1.5rem 1.75rem; margin: 0.5rem 0;
         }
-        .feature-box h3 {
-            color: #79c0ff;
-            margin-bottom: 0.5rem;
+        table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.97rem; }
+        th, td { border: 1px solid #d8dee6; padding: 0.55rem 0.75rem; text-align: left; vertical-align: top; }
+        th { background: #eef3f9; color: #10243e; }
+        code { background: #eef1f5; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.92em; }
+        .note { background: #fdf6e0; border: 1px solid #e3cf8a; border-radius: 6px; padding: 1rem 1.25rem; }
+        .note p { margin-bottom: 0.5rem; }
+        .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+        .btn {
+            display: inline-block; background: #14549e; color: #fff; text-decoration: none;
+            padding: 0.65rem 1.2rem; border-radius: 5px; font-weight: 600;
         }
-        .cta {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(31,111,235,0.1);
-            border-radius: 8px;
-            margin-top: 2rem;
+        .btn:hover { background: #0f4078; }
+        .btn.secondary { background: #fff; color: #14549e; border: 1px solid #14549e; }
+        footer.site {
+            border-top: 1px solid #d8dee6; margin-top: 2.5rem; padding: 1.5rem 0 2.5rem;
+            color: #6a7a8c; font-size: 0.9rem;
         }
-        .cta button {
-            padding: 0.75rem 1.5rem;
-            background: #1f6feb;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .cta button:hover {
-            background: #388bfd;
-            box-shadow: 0 0 15px rgba(88,166,255,0.3);
-        }
+        footer.site a { color: #40536a; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="https://mirrorborn.us/">← Mirrorborn Hub</a>
-        <a href="https://mirrorborn.us/pricing.html">Pricing</a>
-        <a href="https://mirrorborn.us/network.html">Network Map</a>
-    </nav>
-    
-    <div class="container">
-        <h1>🎮 Wish Node</h1>
-        <p class="tagline">Multiplayer exploration in 11D scrollspace. Text Verse: The Mirrorborn Game.</p>
-        
-        <div class="game-section">
-            <h2>The Game</h2>
-            <p>Navigate a procedurally-generated lattice with other players. Discover artifacts. Solve collective puzzles. Shape the world together.</p>
-            <div class="players-online">● 47 Players Online</div>
+    <header class="site">
+        <div class="wrap">
+            <a class="brand" href="/">Exocortexia <span>by Phext, Inc.</span></a>
+            <nav class="main">
+                <a href="/exocortexia/records-desk.html">Records Desk</a>
+                <a href="/exocortexia/minutes-publisher.html">Minutes Publisher</a>
+                <a href="/exocortexia/contract-ledger.html">Contract Ledger</a>
+                <a href="/exocortexia/data-catalog.html">Data Catalog</a>
+                <a href="/exocortexia/forms-router.html">Forms Router</a>
+                <a href="/exocortexia/security.html">Security</a>
+            </nav>
         </div>
-        
-        <div class="features">
-            <div class="feature-box">
-                <h3>🗺️ Explore</h3>
-                <p>Infinite 11D scrollspace. Coordinates matter. Every location has a story.</p>
-            </div>
-            <div class="feature-box">
-                <h3>👥 Cooperate</h3>
-                <p>Real-time multiplayer. Chat with other minds. Complete quests together.</p>
-            </div>
-            <div class="feature-box">
-                <h3>🔧 Build</h3>
-                <p>Create dungeons. Write NPCs. Shape the world. Your code is the game design.</p>
-            </div>
-            <div class="feature-box">
-                <h3>📊 Persist</h3>
-                <p>Your progress saves in SQ. Cross-platform play. Your character is real.</p>
-            </div>
+    </header>
+
+    <div class="wrap">
+        <div class="hero">
+            <h1>Open software for state government, built in the open.</h1>
+            <p class="lede">Exocortexia is a proof-of-concept suite of five public-records and transparency applications for states with fewer than 5 million residents — designed against Nebraska statute, written in Rust, and published with its test and load receipts attached.</p>
         </div>
-        
-        <div class="game-section">
-            <h2>How to Play</h2>
-            <p>Start at coordinate <code>1.5.1/4.2.1/1.1.1</code>. Follow the scrolls. Meet other players. The story unfolds as you explore.</p>
-        </div>
-        
-        <div class="cta">
-            <h2>Ready to play?</h2>
-            <p style="margin-bottom: 1rem;">Log in with your Mirrorborn account.</p>
-            <button>Launch Game</button>
-        </div>
+
+        <section>
+            <h2>What it is</h2>
+            <p>The five applications share one storage core. Every document lives as a scroll in a <a href="https://phext.io">phext</a> — a plain-text, multi-dimensional document store. Every change is written to a hash-chained audit log, and redactions are first-class, reviewable data rather than edits to the original record.</p>
+            <p>The suite is a single Rust workspace using only the standard library for HTTP — no web framework, no async runtime — so it builds fast, runs on modest hardware, and can be read end-to-end by one person. Sign-in is shared with edit.phext.io through a small HMAC assertion protocol; where SSO is not configured, the apps run in an open demo mode with a visible banner saying so.</p>
+            <p>Exocortexia is a demonstration of capability, developed in public under the MIT license by <strong>Phext, Inc.</strong> It is not a deployed state system, and nothing on this site should be read as a claim that it is.</p>
+        </section>
+
+        <section>
+            <h2>The five applications</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3><a href="/exocortexia/records-desk.html">Records Desk</a></h3>
+                    <p>Public-records search with audited, reversible redactions and an export packet whose time-and-cost worksheet is explicit arithmetic.</p>
+                    <p class="statute">Neb. Rev. Stat. § 84-712 et seq.</p>
+                </div>
+                <div class="card">
+                    <h3><a href="/exocortexia/minutes-publisher.html">Minutes Publisher</a></h3>
+                    <p>Public-meeting agenda and minutes posting with statutory timeliness checks and a hash-chained proof-of-posting log.</p>
+                    <p class="statute">Open Meetings Act, §§ 84-1408–84-1414</p>
+                </div>
+                <div class="card">
+                    <h3><a href="/exocortexia/contract-ledger.html">Contract &amp; Grant Ledger</a></h3>
+                    <p>A contract ledger reconciled against the public State Contracts Database — amendment overlays, expiry alerts, missing-upload flags.</p>
+                    <p class="statute">Neb. Rev. Stat. § 84-602.04</p>
+                </div>
+                <div class="card">
+                    <h3><a href="/exocortexia/data-catalog.html">Open Data Catalog</a></h3>
+                    <p>A data-governance catalog: datasets with field-level definitions, provenance, refresh cadence, and staleness computed on the day you look.</p>
+                    <p class="statute">Framing sheet in the repo docs</p>
+                </div>
+                <div class="card">
+                    <h3><a href="/exocortexia/forms-router.html">Forms Intake Router</a></h3>
+                    <p>Forms intake with a strict, explicit state machine and a no-PII design — routing needs no name, email, or contact field, so the form never asks.</p>
+                    <p class="statute">State-machine sheet in the repo docs</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Verified, not asserted</h2>
+            <div class="panel">
+                <p>The suite ships with its receipts. Full record: <a href="https://github.com/wbic16/Exocortexia/blob/exo/docs/VERIFICATION.md">docs/VERIFICATION.md</a> in the repository.</p>
+                <table>
+                    <tr><th>Check</th><th>Result</th></tr>
+                    <tr><td>Automated tests across the workspace</td><td>69 passed, 0 failed</td></tr>
+                    <tr><td>Document store, 100,000-document corpus</td><td>Build 69&nbsp;ms · serialize 32.4&nbsp;MB in 83&nbsp;ms · 200 full-corpus searches in 2,407&nbsp;ms</td></tr>
+                    <tr><td>Audit-log tamper check (negative control)</td><td>Tampering detected — in memory and after a store round-trip</td></tr>
+                    <tr><td>HTTP load, 50 concurrent × 1,000 requests</td><td>Zero errors · p95 between 1.1&nbsp;ms and 15.2&nbsp;ms against a 500&nbsp;ms budget</td></tr>
+                    <tr><td>Seed corpora</td><td>Deterministic — regenerating produces identical SHA-256 hashes</td></tr>
+                </table>
+                <p><strong>The failure we found and fixed:</strong> at 500 concurrent connections, the first build <em>failed</em> its latency budget — p95 of 1,048&nbsp;ms, caused by the standard listener's 128-deep connection backlog. Moving to a 1024-deep backlog brought p95 to 26&nbsp;ms and p99 to 38&nbsp;ms with zero errors. The failure, the diagnosis, and the fix are all recorded in the verification document — that record is the point of the exercise.</p>
+                <p>Honest limits: load numbers are single-node loopback measurements on a 16-core machine — headroom evidence for a small state's traffic shape, not internet latency. The Records Desk demo process carries a 400-document corpus; the 100,000-document figures are proven at the store level.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Security</h2>
+            <p>A security audit and penetration-testing pass over the suite is a separate work item. Its results will be published on the <a href="/exocortexia/security.html">security page</a> when complete. That page is a marked placeholder until then and carries no findings yet.</p>
+        </section>
+
+        <section>
+            <h2>Read the code</h2>
+            <p>The suite is open source (MIT) and developed in public. Every application page on this site links to its source folder, its statute sheet, and its template procurement language in the repository.</p>
+            <div class="cta-row">
+                <a class="btn" href="https://github.com/wbic16/Exocortexia">github.com/wbic16/Exocortexia</a>
+                <a class="btn secondary" href="https://github.com/wbic16/Exocortexia/blob/exo/docs/VERIFICATION.md">Verification receipts</a>
+            </div>
+        </section>
     </div>
-<footer style="text-align: center; padding: 2rem 1rem 1rem; font-size: 0.75rem; color: #666; font-family: monospace;"><p><a href="https://github.com/wbic16" style="color: #88C0D0; text-decoration: none; margin: 0 0.5rem;">GitHub</a> · <a href="https://discord.gg/kGCMM5yQ" style="color: #88C0D0; text-decoration: none; margin: 0 0.5rem;">Discord</a> · <a href="https://x.com/wbic16" style="color: #88C0D0; text-decoration: none; margin: 0 0.5rem;">X/Twitter</a><br>Built by the <a href="https://mirrorborn.us" style="color: #88C0D0; text-decoration: none;">Shell of Nine</a> · <a href="https://mirrorborn.us/pricing.html" style="color: #88C0D0; text-decoration: none;">Pricing</a> 🦋 · R17-b65426e · wishnode.net</p></footer>
+
+    <footer class="site">
+        <div class="wrap">
+            <p>Exocortexia is built by <a href="https://github.com/wbic16">Phext, Inc.</a> · Source: <a href="https://github.com/wbic16/Exocortexia">github.com/wbic16/Exocortexia</a> (MIT) · wishnode.net</p>
+        </div>
+    </footer>
 </body>
 </html>
