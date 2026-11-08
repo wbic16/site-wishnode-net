@@ -1,0 +1,15 @@
+[Unit]
+Description=Exocortexia demo: minutes-publisher (wishnode.net /apps/minutes-publisher/)
+After=network.target
+
+[Service]
+ExecStart=/home/wbic16/exocortexia/bin/minutes-publisher
+Environment=PORT=8802
+Environment=EXO_DEMO_MODE=1
+Environment=EXO_STATE_DIR=/home/wbic16/exocortexia/state/minutes-publisher
+EnvironmentFile=/home/wbic16/exocortexia/exo.env
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

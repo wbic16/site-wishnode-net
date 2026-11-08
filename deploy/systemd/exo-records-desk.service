@@ -1,0 +1,15 @@
+[Unit]
+Description=Exocortexia demo: records-desk (wishnode.net /apps/records-desk/)
+After=network.target
+
+[Service]
+ExecStart=/home/wbic16/exocortexia/bin/records-desk
+Environment=PORT=8801
+Environment=EXO_DEMO_MODE=1
+Environment=EXO_STATE_DIR=/home/wbic16/exocortexia/state/records-desk
+EnvironmentFile=/home/wbic16/exocortexia/exo.env
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

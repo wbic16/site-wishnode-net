@@ -100,9 +100,46 @@ the Exocortexia `exo-sso` crate (task 13.6.8/7.6.9/6.6.9):
   `/api/records-request` (the two forms), `/status` (claim lookup),
   `/my`, `/auth/login`, `/api/auth/callback`, `/auth/logout`,
   `/api/admin/claim`, `/api/admin/advance`, `/api/health`.
+- **Demo applications** (task 27.6.8/8.6.11/5.6.8): the five real
+  Exocortexia programs (wbic16/Exocortexia @ 342a268, the
+  post-security-pass build, binaries unmodified) run on this host as
+  systemd user units `exo-<app>.service`, bound to 127.0.0.1 only:
+
+  | Public path (once the include lands) | App | Port | Demo corpus |
+  |---|---|---|---|
+  | `/apps/records-desk/` | records-desk | 8801 | 400 synthetic documents |
+  | `/apps/minutes-publisher/` | minutes-publisher | 8802 | 12 boards × 6 meetings |
+  | `/apps/contract-ledger/` | contract-ledger | 8803 | 60 contracts, 29 amendments |
+  | `/apps/data-catalog/` | data-catalog | 8804 | 8 datasets |
+  | `/apps/forms-router/` | forms-router | 8805 | public-records-request form |
+
+  Each unit sets `EXO_DEMO_MODE=1` (the apps' explicit open demo mode:
+  a visible "AUTH DISABLED — local demo mode" banner, synthetic data
+  only) and `EXO_STATE_DIR=~/exocortexia/state/<app>/`, so redactions,
+  submissions, and audit chains persist across restarts (verified:
+  a forms-router submission stayed `closed` with full history after a
+  unit restart). `EXO_AUDIT_KEY` lives in `~/exocortexia/exo.env`
+  (mode 0600, generated on the host, never in this repo). Binaries
+  live in `~/exocortexia/bin/` — build artifacts stay out of this
+  repo; `scripts/install_exo_apps.sh` (run on aletheia-core) rebuilds,
+  ships, hash-verifies, and smoke-checks them.
+
+  The apps emit root-absolute links and know nothing of the subpath.
+  The nginx snippet maps them honestly instead of patching the audited
+  binaries: `proxy_pass …/` strips the `/apps/<app>/` prefix inbound,
+  `proxy_redirect` maps redirects back, and `sub_filter` (the host's
+  nginx is built `--with-http_sub_module`) rewrites the two
+  absolute-URL attribute forms (`href="/…`, `action="/…`) outbound.
+  Source inspection confirmed the complete set: the apps build no URLs
+  in JavaScript and use no external assets, and `sub_filter` applies
+  to text/html only, so JSON API responses pass through byte-exact.
+  Documented limit: if a future app version builds URLs in script or
+  emits another absolute-reference form, this mapping must be
+  revisited before that version is deployed.
 - **Supervision:** systemd *user* units (`deploy/systemd/`), enabled
-  with linger, so both services survive logout and reboot:
-  `wishnode-sq.service`, `wishnode-backend.service`.
+  with linger, so the services survive logout and reboot:
+  `wishnode-sq.service`, `wishnode-backend.service`, and the five
+  `exo-<app>.service` units above.
 
 ## The one root step (blocker, precisely scoped)
 
@@ -118,11 +155,16 @@ include /sites/web/wishnode.net/nginx/wishnode-dynamic.conf;
 ```
 
 The included file (this repo: `deploy/nginx/wishnode-dynamic.conf`,
-deployed to that path) proxies only `/api/`, `/auth/`, `/status`, and
+deployed to that path) proxies `/api/`, `/auth/`, `/status`, and
 `/my` to `127.0.0.1:8940` with `proxy_http_version 1.1` and a 32k body
-cap. It does not proxy SQ. After the include + `nginx -t` + reload,
-the forms, status page, sign-in, and admin API are public with no
-further changes here.
+cap, and the five demo applications under `/apps/<app>/` to
+127.0.0.1:8801–8805 (see "Demo applications" above). It does not proxy
+SQ. After the include + `nginx -t` + reload, the forms, status page,
+sign-in, admin API, and all five live demos are public with no further
+changes here. Until then the vhost's static fallback serves the
+homepage for those paths (HTTP 200 HTML), which is why "reachable"
+claims in this document are always stated as host-side or public
+separately.
 
 ## How staff advance a submission
 
@@ -196,13 +238,22 @@ keep the original words as provenance.
 ## Deploy
 
 `scripts/deploy.sh` (run on aletheia-core) ships this repo's `phexts/`,
-`backend/`, `scripts/`, `assets/` to the host's `~/wishnode-stage/`,
-then `scripts/box-setup.sh` installs/updates: data dirs, the Python
-venv (`phext==0.3.2`), secrets on first run (generated on the host,
-0600, never in this repo), systemd user units, a docroot backup under
-`/sites/backups/`, a phext refresh + SQ restart (replacing a hosted
-phext file wedges the daemon, so the restart is part of the deploy),
-and a fresh render into the docroot.
+`backend/`, `scripts/`, `assets/` and `deploy/` to the host's
+`~/wishnode-stage/`, then `scripts/box-setup.sh` installs/updates:
+data dirs, the Python venv (`phext==0.3.2`), secrets on first run
+(generated on the host, 0600, never in this repo), systemd user units
+(the two wishnode units plus the five `exo-*.service` units), a
+docroot backup under `/sites/backups/`, a phext refresh + SQ restart
+(replacing a hosted phext file wedges the daemon, so the restart is
+part of the deploy), the nginx snippet copy into the docroot, and a
+fresh render into the docroot.
+
+The demo-app binaries are separate from the site deploy:
+`scripts/install_exo_apps.sh` (run on aletheia-core) builds
+wbic16/Exocortexia in release mode, ships the five binaries to
+`~/exocortexia/bin/` with SHA-256 comparison, generates
+`~/exocortexia/exo.env` on the host on first run, installs the
+`exo-*.service` units, and smoke-checks ports 8801–8805.
 
 Content edits: edit the phexts in this repo (the builder
 `build_phexts.py` regenerates most of them from the Exocortexia
@@ -214,7 +265,16 @@ re-run `scripts/deploy.sh`.
 
 - Dynamic routes wait on the one-line nginx include above. Until then
   the forms are verified end-to-end against the backend on the host,
-  and the static pages carry the site.
+  the five demo apps are exercised end-to-end on the host, and the
+  static pages carry the site.
+- The demo apps' subpath mapping relies on `sub_filter` rewriting two
+  attribute forms; it is exact for the audited 342a268 build (verified
+  in source) and must be re-checked if the apps ever build URLs in
+  JavaScript or emit other absolute references.
+- The demo apps run in open demo mode by design: anyone who can reach
+  them can use them, with synthetic data only. A real deployment adds
+  sign-in via edit.phext.io (the same SSO the backend consumes) and
+  the office's own data; the demo state directories are throwaway.
 - SQ flushes by rewriting the whole phext file (no atomic rename); at
   this scale that is fine, and citizen files (the write-heavy tier) use
   temp-then-rename in the backend instead.

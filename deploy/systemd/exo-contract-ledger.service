@@ -1,0 +1,15 @@
+[Unit]
+Description=Exocortexia demo: contract-ledger (wishnode.net /apps/contract-ledger/)
+After=network.target
+
+[Service]
+ExecStart=/home/wbic16/exocortexia/bin/contract-ledger
+Environment=PORT=8803
+Environment=EXO_DEMO_MODE=1
+Environment=EXO_STATE_DIR=/home/wbic16/exocortexia/state/contract-ledger
+EnvironmentFile=/home/wbic16/exocortexia/exo.env
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

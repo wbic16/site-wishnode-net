@@ -1,0 +1,15 @@
+[Unit]
+Description=Exocortexia demo: data-catalog (wishnode.net /apps/data-catalog/)
+After=network.target
+
+[Service]
+ExecStart=/home/wbic16/exocortexia/bin/data-catalog
+Environment=PORT=8804
+Environment=EXO_DEMO_MODE=1
+Environment=EXO_STATE_DIR=/home/wbic16/exocortexia/state/data-catalog
+EnvironmentFile=/home/wbic16/exocortexia/exo.env
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

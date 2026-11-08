@@ -76,8 +76,18 @@ done
 # --- systemd user units --------------------------------------------------------
 cp "$STAGE/deploy/systemd/wishnode-sq.service" "$HOME/.config/systemd/user/"
 cp "$STAGE/deploy/systemd/wishnode-backend.service" "$HOME/.config/systemd/user/"
+# Exocortexia demo-app units (binaries + exo.env are installed by
+# scripts/install_exo_apps.sh, run from aletheia-core; the units live here
+# too so a site deploy keeps them current).
+for u in "$STAGE"/deploy/systemd/exo-*.service; do
+  cp "$u" "$HOME/.config/systemd/user/"
+done
 systemctl --user daemon-reload
 systemctl --user enable wishnode-sq.service wishnode-backend.service >/dev/null
+if [ -x "$HOME/exocortexia/bin/records-desk" ]; then
+  systemctl --user enable exo-records-desk.service exo-minutes-publisher.service \
+    exo-contract-ledger.service exo-data-catalog.service exo-forms-router.service >/dev/null
+fi
 
 # Restart SQ AFTER the phext files change (a hosted phext replaced under a
 # running daemon wedges it), then the backend.

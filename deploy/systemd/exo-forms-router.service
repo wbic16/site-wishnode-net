@@ -1,0 +1,15 @@
+[Unit]
+Description=Exocortexia demo: forms-router (wishnode.net /apps/forms-router/)
+After=network.target
+
+[Service]
+ExecStart=/home/wbic16/exocortexia/bin/forms-router
+Environment=PORT=8805
+Environment=EXO_DEMO_MODE=1
+Environment=EXO_STATE_DIR=/home/wbic16/exocortexia/state/forms-router
+EnvironmentFile=/home/wbic16/exocortexia/exo.env
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target
