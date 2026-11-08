@@ -1,0 +1,13 @@
+[Unit]
+Description=SQ host for wishnode.net tiers (pages + intake tenants)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/wbic16/wishnode
+ExecStart=/usr/local/bin/sq host 8931 --config /home/wbic16/wishnode/sq-tenants.json
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

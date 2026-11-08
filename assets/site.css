@@ -1,0 +1,139 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f7f8fa;
+    color: #1c2733;
+    line-height: 1.6;
+}
+header.site {
+    background: #10243e;
+    color: #fff;
+    padding: 0.9rem 0;
+}
+header.site .wrap {
+    max-width: 1080px; margin: 0 auto; padding: 0 1.25rem;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem;
+}
+header.site .brand { font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+header.site .brand span { color: #8fb8e8; font-weight: 400; font-size: 0.95rem; margin-left: 0.5rem; }
+nav.main a { color: #cfe1f5; text-decoration: none; margin-right: 1.1rem; font-size: 0.95rem; }
+nav.main a:hover { color: #fff; text-decoration: underline; }
+nav.main a.nav-cta {
+    background: #14549e; color: #fff; padding: 0.3rem 0.7rem; border-radius: 4px; font-weight: 600;
+}
+nav.main .who { color: #8fb8e8; font-size: 0.9rem; }
+nav.main .who a { margin-right: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+.hero { padding: 3rem 0 1rem; }
+.hero h1 { font-size: 2.4rem; line-height: 1.2; color: #10243e; margin-bottom: 0.75rem; }
+.hero p.lede { font-size: 1.15rem; color: #40536a; max-width: 46rem; }
+section { padding: 1.5rem 0; }
+h1 { font-size: 2rem; line-height: 1.25; color: #10243e; margin-bottom: 0.75rem; }
+h2 { font-size: 1.5rem; color: #10243e; margin-bottom: 0.75rem; }
+h3 { font-size: 1.15rem; color: #10243e; margin-bottom: 0.5rem; }
+p { margin-bottom: 1rem; max-width: 52rem; }
+a { color: #14549e; }
+.summary-lead {
+    background: #eef3f9; border-left: 5px solid #14549e; border-radius: 4px;
+    padding: 1.1rem 1.4rem; margin: 0.5rem 0 0.5rem; font-size: 1.08rem;
+}
+.summary-lead p { margin-bottom: 0.4rem; }
+.summary-lead p:last-child { margin-bottom: 0; }
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+    margin: 1rem 0 0.5rem;
+}
+.card {
+    background: #fff;
+    border: 1px solid #d8dee6;
+    border-top: 4px solid #14549e;
+    border-radius: 6px;
+    padding: 1.25rem 1.4rem;
+}
+.card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.card h3 a { color: #10243e; text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card p { font-size: 0.97rem; color: #33465c; margin-bottom: 0.6rem; }
+.statute { font-size: 0.9rem; color: #5a6c80; margin-bottom: 0; }
+.panel {
+    background: #fff; border: 1px solid #d8dee6; border-radius: 6px;
+    padding: 1.5rem 1.75rem; margin: 0.5rem 0;
+}
+.goodtoknow {
+    background: #fdf6e0; border: 1px solid #e3cf8a; border-radius: 6px;
+    padding: 1.1rem 1.4rem; margin: 0.5rem 0;
+}
+.goodtoknow h2 { font-size: 1.2rem; }
+.cta-box {
+    background: #10243e; color: #eaf1f9; border-radius: 6px;
+    padding: 1.5rem 1.75rem; margin: 1rem 0;
+}
+.cta-box h2 { color: #fff; }
+.cta-box a { color: #a9cdf2; }
+.cta-box .btn { background: #fff; color: #10243e; }
+.cta-box .btn:hover { background: #dbe8f7; }
+table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.97rem; }
+th, td { border: 1px solid #d8dee6; padding: 0.55rem 0.75rem; text-align: left; vertical-align: top; }
+th { background: #eef3f9; color: #10243e; }
+table.timeline td:first-child { white-space: nowrap; }
+code { background: #eef1f5; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.92em; }
+pre.record {
+    background: #fff; border: 1px solid #d8dee6; border-radius: 6px;
+    padding: 1rem 1.25rem; overflow-x: auto; font-size: 0.88rem; line-height: 1.45;
+    white-space: pre-wrap; word-break: break-word; margin-bottom: 1rem;
+}
+details.tech {
+    background: #fff; border: 1px dashed #aeb9c6; border-radius: 6px;
+    padding: 1rem 1.4rem; margin: 1rem 0;
+}
+details.tech summary { font-weight: 700; color: #10243e; cursor: pointer; }
+.note { background: #fdf6e0; border: 1px solid #e3cf8a; border-radius: 6px; padding: 1rem 1.25rem; }
+.note p { margin-bottom: 0.5rem; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+.btn {
+    display: inline-block; background: #14549e; color: #fff; text-decoration: none;
+    padding: 0.65rem 1.2rem; border-radius: 5px; font-weight: 600; border: none;
+    font-size: 1rem; cursor: pointer;
+}
+.btn:hover { background: #0f4078; }
+.btn.secondary { background: #fff; color: #14549e; border: 1px solid #14549e; }
+.small { font-size: 0.92rem; color: #5a6c80; }
+.bigstate { font-size: 1.25rem; font-weight: 700; color: #10243e; }
+.trackcode {
+    font-size: 1.7rem; font-weight: 700; letter-spacing: 0.06em; color: #10243e;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+ul.sentlist { margin: 0 0 1rem 1.4rem; }
+ul.sentlist li { margin-bottom: 0.5rem; }
+form.plain { max-width: 42rem; }
+form.plain label { display: block; font-weight: 600; margin: 1rem 0 0.3rem; }
+form.plain input[type="text"], form.plain input[type="email"],
+form.plain select, form.plain textarea {
+    width: 100%; padding: 0.6rem 0.7rem; border: 1px solid #aeb9c6; border-radius: 5px;
+    font-size: 1rem; font-family: inherit; background: #fff;
+}
+form.plain fieldset { border: 1px solid #d8dee6; border-radius: 6px; padding: 0.8rem 1.1rem; margin-top: 1rem; }
+form.plain legend { font-weight: 600; padding: 0 0.4rem; }
+form.plain .check { display: block; font-weight: 400; margin: 0.35rem 0; }
+form.plain .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+footer.site {
+    border-top: 1px solid #d8dee6; margin-top: 2.5rem; padding: 1.5rem 0 2.5rem;
+    color: #5a6c80; font-size: 0.95rem;
+}
+footer.site a { color: #40536a; }
+/* Mobile: stack wide tables instead of squeezing them */
+@media (max-width: 640px) {
+    table, thead, tbody, tr, th, td { display: block; width: 100%; }
+    tr { margin-bottom: 0.75rem; border: 1px solid #d8dee6; }
+    th, td { border: none; border-bottom: 1px solid #eef1f5; }
+    table.timeline td:first-child { white-space: normal; }
+    .hero h1 { font-size: 1.8rem; }
+    h1 { font-size: 1.6rem; }
+}
+/* Mobile: keep secondary text at a readable size */
+@media (max-width: 640px) {
+    .small, .statute, footer.site, nav.main a { font-size: 1rem; }
+    body { font-size: 1.05rem; }
+}

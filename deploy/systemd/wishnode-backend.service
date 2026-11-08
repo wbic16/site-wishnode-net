@@ -1,0 +1,15 @@
+[Unit]
+Description=wishnode.net backend (forms, claims register, SSO consumer)
+After=network.target wishnode-sq.service
+Wants=wishnode-sq.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/wbic16/wishnode/app
+EnvironmentFile=/home/wbic16/wishnode/backend.env
+ExecStart=/home/wbic16/wishnode/venv/bin/python /home/wbic16/wishnode/app/wishnode_backend.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
