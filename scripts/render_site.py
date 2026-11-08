@@ -220,6 +220,13 @@ def render_app(home, slug):
     body += "</section>"
     if sc.get((1, 2, 2)):
         body += f'<div class="summary-lead">{block(sc[(1, 2, 2)])}</div>'
+    if sc.get((1, 2, 3)):
+        body += '<div class="tryit"><h2>Try it now</h2>'
+        body += block(sc[(1, 2, 3)])
+        if sc.get((1, 2, 4)):
+            body += block(sc[(1, 2, 4)])
+        body += (f'<p><a class="btn" href="/apps/{slug}/">Open the live {esc(APP_NAMES[slug])} demo</a></p>'
+                 "</div>")
     for ch in range(2, 9):
         body += render_chapter(sc, ch, slug=slug)
     body += tech_details(sc)
@@ -228,9 +235,8 @@ def render_app(home, slug):
 def render_home(home):
     title = home.get((1, 1, 2), "Exocortexia — Phext, Inc.")
     body = ""
-    # Chapter 2: What it is
-    body += render_chapter(home, 2)
-    # Chapter 3: the five applications as cards
+    # Chapter 3 first: the five applications, running live — the homepage
+    # leads with using the software; the description chapters follow.
     cards = ""
     for i, slug in enumerate(APPS):
         text = home.get((3, 1, 2 + i), "")
@@ -239,8 +245,11 @@ def render_home(home):
         name, _, rest = text.partition(". ")
         cards += (f'<div class="card"><h3><a href="/exocortexia/{slug}.html">{esc(name)}</a></h3>'
                   f"<p>{esc(rest)}</p>"
+                  f'<p><a class="btn" href="/apps/{slug}/">Try the live demo</a></p>'
                   f'<p><a href="/exocortexia/{slug}.html">More about {esc(APP_NAMES[slug])}</a></p></div>')
     body += f'<section><h2>{esc(home.get((3, 1, 1), "The five applications"))}</h2><div class="cards">{cards}</div></section>'
+    # Chapter 2: What it is
+    body += render_chapter(home, 2)
     # Chapter 4: proof
     body += render_chapter(home, 4)
     body = body.replace("</section>", '<p><a class="btn secondary" href="/exocortexia/verification.html">Read the full test results</a></p></section>', 1) if False else body

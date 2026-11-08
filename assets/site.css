@@ -137,3 +137,8 @@ footer.site a { color: #40536a; }
     .small, .statute, footer.site, nav.main a { font-size: 1rem; }
     body { font-size: 1.05rem; }
 }
+.tryit {
+    background: #eef3f9; border: 1px solid #b9cee8; border-left: 4px solid #14549e;
+    border-radius: 6px; padding: 1.1rem 1.4rem; margin: 0.75rem 0;
+}
+.tryit h2 { font-size: 1.25rem; margin-top: 0; }
