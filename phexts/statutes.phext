@@ -1,0 +1,256 @@
+wishnode.net — statutes phext (phexts/statutes.phext). Full text of the five Exocortexia statute and framing sheets, one chapter per app, one section per sheet section, verbatim from docs/*-statute.md in wbic16/Exocortexia at exo 9660d3b. Each chapter opens with a plain-English note. These sheets are guides, not legal advice. Task 34.6.6/7.7.10/7.6.10.Records Desk — statute sheet (full text)In plain words: the law lets people see public records. Some parts may be held back, for reasons the law lists. This sheet maps each thing the tool does to the part of the law that calls for it.# Records Desk — statute sheet
+
+Demo: **Phext Records Desk** (`apps/records-desk`, port 8801)
+Statutes: **Neb. Rev. Stat. § 84-712 et seq.** and **§ 84-712.05**
+
+> This sheet is a demonstration aid, not legal advice. Statute summaries
+> below are paraphrases for mapping software behaviour to legal duties;
+> bidders and agencies should work from the current official text of the
+> Nebraska Revised Statutes.Records Desk — What the demo does, in statutory terms## What the demo does, in statutory termsNebraska's public records law, § 84-712 et seq., gives every citizen the
+right to examine public records during regular business hours, requires
+the custodian to respond to a request promptly (the statute contemplates
+a response within four business days, with a written explanation and an
+estimated availability date when the request cannot be filled in that
+window), and permits charging only the actual, lawful costs the statute
+allows. § 84-712.05 lists the categories of records that *may* be withheld
+from the public — the exceptions.The Records Desk maps one-to-one onto that structure:| Demo behaviour | Statutory anchor |
+|---|---|
+| Full-text search across the whole records corpus, results in seconds | The custodian's duty to locate and produce responsive records under § 84-712 |
+| Responsive set listed explicitly in the export packet, with coordinates | The response should identify what was found and produced |
+| Redactions stored as a **separate layer** over untouched originals; the exported view shows `[REDACTED <category>]` markers | § 84-712.05 — withholding is by category/exception, applied to copies produced for the requester; the underlying public record is not altered |
+| Redaction form requires a category chosen from the § 84-712.05 exception list, a byte range, and a written reason | Each withholding should be traceable to a specific statutory exception |
+| Every redaction appends a hash-chained audit entry (actor, action, coordinate, payload hash) | Accountability for what was withheld, by whom, and why — the record a requester or a court would ask for |
+| Export packet's time/cost worksheet: pages = bytes ÷ 2,000 (rounded up), review = 2 min/page, search/assembly = 5 min/document, cost = hours × a stated rate, delivery = hours ÷ 6 productive hours per day | Fees and timelines under § 84-712 must be actual and explainable; a worksheet whose assumptions are printed next to its arithmetic is the difference between an estimate and a number |The worksheet is deliberately the centrepiece. A public-records response
+is search, review, and arithmetic. Software that does the search in
+milliseconds and shows its cost math line by line removes the factual
+basis for multi-year delivery estimates and six-figure search fees: the
+remaining time is human review, and the worksheet prices exactly that.Records Desk — Suggested RFP language (template)## Suggested RFP language (template)> **Template language — for adaptation by the issuing agency; not a legal
+> opinion.** The Respondent's public-records system shall: (1) maintain
+> public records in a searchable store in which each record carries a
+> stable, citable address; (2) apply redactions as a separate,
+> reversible layer over unmodified original records, with each redaction
+> bound to a specific exception under Neb. Rev. Stat. § 84-712.05, a
+> stated reason, and the identity of the person applying it; (3) record
+> every redaction and release in an append-only, tamper-evident audit log
+> whose integrity can be verified independently; (4) generate, for any
+> request, an export packet listing the responsive set and a time/cost
+> worksheet in which every figure is derived from stated assumptions
+> (bytes-per-page, minutes-per-page, hourly rate, productive hours per
+> day) printed in the packet itself; and (5) demonstrate, on a reference
+> corpus of at least 100,000 records, end-to-end production of an export
+> packet — search, redaction, worksheet, and audit verification —
+> within one business day of the request.Records Desk — Demo notes## Demo notes- The demo corpus is synthetic (400 documents, deterministic seed) and
+  contains no real personal information; a production deployment would
+  ingest the agency's own records store.
+- The $28.00/hour rate in the worksheet is a stated demo assumption, not
+  a statutory figure; the worksheet prints whatever rate is configured
+  alongside the math.
+- Redaction categories in the demo use the short labels from
+  `REDACTION_CATEGORIES` in exo-core (e.g. "84-712.05(3) personnel").Minutes Publisher — statute sheet (full text)In plain words: boards must post agendas a day ahead, share minutes in 10 working days, and keep minutes for at least 6 months if the law names their kind of body. This sheet shows the rules and how the tool checks them.# Minutes Publisher — statute sheet
+
+Demo: **Public Meetings Minutes Publisher** (`apps/minutes-publisher`, port 8802)
+Statute: **Neb. Rev. Stat. § 84-1413** (Open Meetings Act, §§ 84-1408–84-1414)
+
+> This sheet is a demonstration aid, not legal advice. Statute summaries
+> below are paraphrases for mapping software behaviour to legal duties;
+> bidders and agencies should work from the current official text of the
+> Nebraska Revised Statutes.Minutes Publisher — The three rules the demo enforces## The three rules the demo enforcesNebraska's Open Meetings Act requires, in substance:1. **Agenda — 24 hours.** A public body must make its agenda available to
+   the public at least 24 hours before the meeting (§ 84-1412 covers the
+   agenda duty; the publisher checks it alongside § 84-1413's minutes
+   duties). The demo works at day granularity: an agenda posted on an
+   earlier day than the meeting passes; a same-day posting is flagged
+   **LATE AGENDA**.
+2. **Minutes — 10 working days.** Under § 84-1413, the minutes of a
+   meeting must be written and available for public inspection within
+   **10 working days** or before the next meeting, whichever comes first.
+   The demo flags minutes posted after the 10th working day — or not
+   posted once the window has closed — as **LATE MINUTES**, and minutes
+   still inside the window as **PENDING** (not a violation).
+3. **Retention — 6 months.** § 84-1413 requires minutes to be retained
+   for at least **6 months** by the bodies it names: **natural resources
+   districts, cities, counties with a population above the statutory
+   threshold (25,000), and school boards** — political subdivisions whose
+   records the Legislature singled out for a minimum retention floor.
+   (Other public bodies remain subject to their applicable records
+   retention schedules.) The demo flags a meeting more than 180 days old
+   whose minutes are no longer present.Minutes Publisher — What the demo does, in statutory terms## What the demo does, in statutory terms| Demo behaviour | Statutory anchor |
+|---|---|
+| Every meeting stored as an addressable record: board, meeting day, agenda posting day, minutes posting day, and each vote (member, motion, yes/no/abstain) | § 84-1413's requirement that minutes record the substance of matters discussed and votes taken |
+| Compliance computed from the posting days, not asserted: `agenda_posted < meeting_day`; minutes within 10 working days (Mon–Fri) counted in `(meeting_day, posted_day]` | The Act's deadlines are arithmetic; the demo shows the arithmetic |
+| Proof-of-posting audit log: each agenda and minutes posting appends a hash-chained entry at publication time | A body that must prove *when* something was posted needs a tamper-evident posting record, not a file timestamp |
+| `GET /static` emits one self-contained HTML snapshot of all boards and meetings, closing with the audit entries and a chain-verification result | The published artifact itself carries its own evidence of timely posting |
+| Per-board compliance summary and a JSON violations list (`GET /api/compliance`) | Oversight is per-body; a clerk or a citizen can see exactly which meetings of which body are out of compliance |Working-day counting is the subtle part, and the demo does it explicitly:
+epoch day 0 (1970-01-01) was a Thursday; with 0 = Sunday, `weekday =
+(day + 4) mod 7`, working days are Monday–Friday, and the 10-day window is
+counted in working days only — a meeting on a Friday has until the Monday
+of the second following week, not the next calendar Monday-plus-ten.Minutes Publisher — Suggested RFP language (template)## Suggested RFP language (template)> **Template language — for adaptation by the issuing agency; not a legal
+> opinion.** The Respondent's meeting-records system shall: (1) store each
+> meeting as a discrete, addressable record carrying the body, the meeting
+> date, the agenda posting timestamp, the minutes posting timestamp, and
+> each recorded vote by member and motion; (2) compute Open Meetings Act
+> compliance arithmetically from those timestamps — agenda available at
+> least 24 hours before the meeting, minutes available within 10 working
+> days (Neb. Rev. Stat. § 84-1413), and minutes retained for at least 6
+> months for the bodies § 84-1413 names, including natural resources
+> districts, cities, larger counties, and school boards — and report
+> violations per body without manual review; (3) maintain an append-only,
+> tamper-evident proof-of-posting log in which every agenda and minutes
+> posting is recorded at publication time and whose integrity can be
+> verified independently; and (4) publish a self-contained static snapshot
+> of all meeting records and compliance status that a member of the public
+> can save and verify offline.Minutes Publisher — Demo notes## Demo notes- All twelve boards in the demo are synthetic (every name contains
+  "Example"); members and votes are generated deterministically. The seed
+  deliberately includes same-day agendas, late minutes, one pending set,
+  and one old meeting with missing minutes so every rule visibly fires.
+- Day granularity is a demo simplification of the 24-hour agenda rule; a
+  production deployment would store timestamps, not days, for that check.
+  The 10-working-day minutes rule and the 6-month retention rule are
+  day-based in substance and are computed exactly.Contract Ledger — statute sheet (full text)In plain words: state contracts must be posted in a public database the law set up. This sheet shows why a checker that matches your list to the public list is the right tool for that duty.# Statute Sheet — Contract Ledger
+
+> Template material for a demonstration and a possible solicitation
+> response. Verify the current statutory text and any solicitation terms
+> before relying on either. Nothing here is legal advice.Contract Ledger — 1. The demo## 1. The demo**Contract Ledger** (port 8803) is a working demonstration with synthetic
+data: 60 generated state contracts with amendment overlays, expiry alert
+buckets (expired / 30 / 60 / 90 days), spend percentages, and a
+missing-from-public-database flag. It runs in seconds, needs no external
+services, and every number on screen can be recomputed from the stored
+records — amendments never rewrite the base contract, so the lineage from
+base authorization to effective authorization is fully auditable.Contract Ledger — 2. The statute## 2. The statute**Neb. Rev. Stat. § 84-602.04 — State Contracts Database (LB 429).**
+LB 429 (2011) established Nebraska's public State Contracts Database and
+the duty for state agencies to make their contracts part of that public
+record, administered under § 84-602.04. (Confirm the current codified text,
+the administering office, and the contract-value thresholds in the current
+Revised Statutes before citing them in a filing or response.)The compliance problem § 84-602.04 creates is a *reconciliation* problem:
+the statute is satisfied only when what agencies hold matches what the
+public database shows. Missed uploads and un-reflected amendments are
+exactly the gaps a feeder/reconciler closes.Contract Ledger — 3. The pitch## 3. The pitchContract Ledger is **not** a replacement database. It is a **feeder and
+reconciler** that sits between agency contract records and the public
+State Contracts Database:- ingests agency contract records in a stable, append-only form;
+- applies amendments as overlays, preserving the base record and the full
+  lineage (base → amendment → running effective total);
+- flags every contract **missing from the public database** so the upload
+  gap is a work list, not an audit surprise;
+- raises expiry alerts at 90 / 60 / 30 days so renewals are planned, not
+  discovered after lapse.Contract Ledger — 4. Paste-able RFP language (template)## 4. Paste-able RFP language (template)> **TEMPLATE — adapt to the specific solicitation before use.**
+>
+> The Contractor shall provide a contract-ledger reconciliation service
+> that: (a) maintains an append-only record of each covered contract in
+> which the original contract record is never altered and each amendment
+> is recorded as a separate, linked entry stating its change to the
+> authorized amount; (b) computes and displays, for each contract, the
+> effective authorized amount as the base authorization plus the sum of
+> all amendment changes, together with amount spent and percent spent;
+> (c) generates expiry alerts no later than 90, 60, and 30 days before
+> each contract's end date, and flags expired contracts; (d) reconciles
+> the ledger against the State Contracts Database maintained under
+> Neb. Rev. Stat. § 84-602.04 and reports every contract present in agency
+> records but missing from the public database, and every material
+> difference in authorized amount between the two; and (e) delivers the
+> reconciliation report in a machine-readable format on a schedule set by
+> the State. All records produced under this section shall preserve a
+> complete, inspectable lineage from each base contract through each of
+> its amendments.Data Catalog — statute sheet (full text)In plain words: no law requires this catalog. This sheet says so, in the open. It frames the catalog as a small pilot with a clear yes-or-no gate at the end.# Statute Sheet — Data Catalog
+
+> Template material for a demonstration and a possible solicitation
+> response. Verify current policy documents and solicitation terms before
+> relying on them. Nothing here is legal advice.Data Catalog — 1. The demo## 1. The demo**Data Catalog** (port 8804) is a working demonstration with synthetic
+data: eight Nebraska-flavoured datasets, each with an owner, a declared
+update cadence, a last-updated date, a source URL, and a field-level table
+(field, plain-language definition, type, provenance). It computes
+FRESH/STALE badges as of today and can check, on demand, whether each
+dataset's source URL still answers.Data Catalog — 2. The framing — a pilot, honestly labelled## 2. The framing — a pilot, honestly labelledUnlike the other apps in this suite, the Data Catalog is **not** tied to a
+single statute that mandates a catalog. It is framed as **data-governance
+pilot support**:- **Hypothesis (unvalidated):** the catalog need itself is unproven. No
+  agency has yet confirmed, in a requirements process, that a shared
+  dataset catalog with field definitions, provenance, and staleness
+  tracking is a gap they need filled. This demo exists to make that
+  conversation concrete — a steward can react to a working catalog in a
+  way they cannot react to a slide — not to presume the answer.
+- **Context:** state IT leadership through the Office of the Chief
+  Information Officer (OCIO) has publicly prioritised data quality and
+  "clean data" as foundations for later modernisation and AI work. A
+  catalog is one plausible instrument for that priority: you cannot clean
+  data you have not inventoried, and you cannot keep data clean without
+  knowing its owner, cadence, and provenance. That is context for the
+  hypothesis, not evidence for it.The correct next step this sheet supports is a **time-boxed pilot with a
+validation gate**, not a platform purchase.Data Catalog — 3. The pitch## 3. The pitch- Inventory first: datasets, owners, cadences, and field-level definitions
+  and provenance in one inspectable place.
+- Freshness as a rule, not a vibe: staleness is one stated formula
+  (age > cadence), recomputed on every view.
+- Link rot surfaced on demand: source URLs are tested when a steward asks,
+  and the checker says plainly what it does not check (HTTPS in this demo).
+- Pilot terms: a small fixed scope, a named set of real datasets from one
+  or two volunteer agencies, and a written go/no-go based on whether
+  stewards actually use the staleness and provenance views.Data Catalog — 4. Paste-able RFP language (template)## 4. Paste-able RFP language (template)> **TEMPLATE — adapt to the specific solicitation before use. The pilot
+> and validation-gate structure below is deliberate; do not strip it.**
+>
+> The Contractor shall provide a data-catalog pilot that: (a) inventories
+> an initial set of datasets designated by the State, recording for each
+> dataset its owning agency, declared update cadence, last-updated date,
+> and source location; (b) records, for each field of each dataset, a
+> plain-language definition, a data type, and a provenance statement
+> identifying where the field's values originate; (c) computes dataset
+> freshness by a single stated rule — a dataset is stale when the time
+> since its last update exceeds its declared cadence — and reports
+> freshness as of the date of viewing; (d) tests source locations on
+> demand and reports, for each, whether it answered, and discloses any
+> class of location the tool does not test; and (e) concludes with a
+> written pilot evaluation, prepared with the participating agencies,
+> stating whether the catalog met a demonstrated governance need and
+> recommending whether to expand, revise, or discontinue it. Expansion
+> beyond the pilot scope shall occur only on the State's written
+> direction following that evaluation.Forms Router — statute sheet (full text)In plain words: each form must move through fixed steps, in order, with no steps skipped. This sheet ties that design to the public-records law and shows the strict step rules.# Statute Sheet — Forms Router
+
+> Template material for a demonstration and a possible solicitation
+> response. Verify the current statutory text and any solicitation terms
+> before relying on either. Nothing here is legal advice.Forms Router — 1. The demo## 1. The demo**Forms Router** (port 8805) is a working demonstration with synthetic
+data: a public-records request form rendered from a data spec, submissions
+tracked by a derived code, a strict four-state lifecycle
+(received → routed → in review → closed) with a complete history timeline
+and audit trail, and a CSV export. Illegal transitions are rejected with
+nothing written — the demo's test suite enumerates all 16 state pairs and
+proves exactly 3 are legal.Forms Router — 2. The statutes and channels## 2. The statutes and channels**Neb. Rev. Stat. § 84-712 — public records requests.** Nebraska's public
+records law gives any person the right to examine public records and sets
+agency duties for responding to requests. Every request an agency receives
+has to be routed to the right custodian and answered inside that framework,
+which makes intake — capturing the request completely, acknowledging it,
+and tracking it to closure — a statutory workflow, not clerical overhead.
+(Confirm current response timelines and fee provisions in the current
+Revised Statutes before citing them.)**Nebraska.gov small-application development.** The state's portal channel
+has historically been the route for small agency web applications and
+online forms. A forms-intake tool of this size fits that small-application
+pattern: one form family, one workflow, hosted simply. (Confirm the
+current network-manager arrangement and approval path — including OCIO
+review of IT acquisitions — before proposing a channel.)Forms Router — 3. The pitch## 3. The pitch- **Complete capture, minimal data.** The form asks for exactly what
+  routing needs — agency, subject, description, date range — and nothing
+  else.
+- **No-PII design.** There is deliberately **no name, email, or contact
+  field**. Status is followed with a tracking code issued at submission,
+  so the system never has to store requester identities to keep requesters
+  informed. This shrinks the privacy and records-retention surface of the
+  intake system itself, and the request data can be handled as the public
+  record it is.
+- **A state machine, not a hope.** Requests move received → routed →
+  in review → closed, one step at a time, with every move timestamped in
+  the record and in a hash-chained audit log. Nothing skips, nothing goes
+  backwards, nothing closes silently — which is what makes statutory
+  response timelines measurable.
+- **Cheap to run.** One small service per form family, an exportable CSV
+  for whatever system of record the agency already keeps.Forms Router — 4. Paste-able RFP language (template)## 4. Paste-able RFP language (template)> **TEMPLATE — adapt to the specific solicitation before use.**
+>
+> The Contractor shall provide a forms-intake service for public-records
+> requests under Neb. Rev. Stat. § 84-712 that: (a) renders each intake
+> form from a State-editable specification, so fields may be changed
+> without modifying application code; (b) collects no personal information
+> beyond what routing requires, and in particular shall not require a
+> requester's name or contact information to submit or to track a request,
+> instead issuing a tracking code at submission by which the requester may
+> follow status; (c) manages each request through a defined state machine
+> — received, routed, in review, closed — permitting only the transitions
+> received→routed, routed→in-review, and in-review→closed, rejecting all
+> other transitions without altering the record; (d) records every
+> accepted transition, with timestamp, both in the request's own history
+> and in a tamper-evident audit log; and (e) exports all requests, with
+> current state, in a documented machine-readable format. The service
+> shall display, on every intake form, a notice stating what information
+> is collected and that personal information is not required.
