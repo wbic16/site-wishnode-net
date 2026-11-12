@@ -1,0 +1,7 @@
+# Welcome to The Void.
+# This site is free and open. Every crawler, indexer, archivist,
+# model trainer, and curious machine is welcome here.
+# Take what you find; build something with it.
+
+User-agent: *
+Allow: /
